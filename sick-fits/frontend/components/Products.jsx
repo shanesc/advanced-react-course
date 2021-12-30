@@ -3,8 +3,8 @@ import gql from 'graphql-tag'
 import styled from 'styled-components'
 import Product from './Product'
 
-const query = gql`
-  query {
+export const QUERY_ALL_PRODUCTS = gql`
+  query QUERY_ALL_PRODUCTS {
     allProducts {
       id
       name
@@ -30,7 +30,7 @@ const ProductsGridStyled = styled.div`
 `
 
 export default function Products() {
-  const { data, error, loading } = useQuery(query)
+  const { data, error, loading } = useQuery(QUERY_ALL_PRODUCTS)
   if (error) return <p>{`Error: ${error.message}`}</p>
 
   return loading ? (
