@@ -29,6 +29,7 @@ export const Product = list({
         { label: 'Draft', value: 'DRAFT' },
         { label: 'Available', value: 'AVAILABLE' },
         { label: 'Unavailable', value: 'UNAVAILABLE' },
+        { label: 'Deleted', value: 'DELETED' },
       ],
       defaultValue: 'DRAFT',
       ui: {
@@ -37,6 +38,5 @@ export const Product = list({
       },
     }),
     price: integer(),
-    // TODO Add photo
   },
 })

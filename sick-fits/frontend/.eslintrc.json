@@ -25,6 +25,7 @@
       "LabeledStatement",
       "WithStatement"
     ],
+    "no-restricted-globals": 1,
     "no-unused-vars": [
       1,
       {
