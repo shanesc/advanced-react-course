@@ -13,7 +13,7 @@ export default function Product({ product }) {
         alt={product.name}
       />
       <TitleStyled>
-        <Link href={`/products/${product.id}`}>{product.name}</Link>
+        <Link href={`/products/id/${product.id}`}>{product.name}</Link>
       </TitleStyled>
       <PriceTag>{formatMoney(product.price)}</PriceTag>
       <p>{product.description}</p>
