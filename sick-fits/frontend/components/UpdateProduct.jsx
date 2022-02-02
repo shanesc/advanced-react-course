@@ -39,12 +39,10 @@ export default function UpdateProduct({ id }) {
     },
   })
 
-  const [
-    updateProduct,
-    { data: updateData, loading: updateLoading, error: updateError },
-  ] = useMutation(MUTATION_SINGLE_PRODUCT_UPDATE)
+  const [updateProduct, { loading: updateLoading, error: updateError }] =
+    useMutation(MUTATION_SINGLE_PRODUCT_UPDATE)
 
-  const { inputs, handleChange, clearForm, resetForm } = useForm(
+  const { inputs, handleChange, clearForm } = useForm(
     queryData?.Product || { name: '', price: '' }
   )
 
