@@ -56,7 +56,7 @@ export default function UpdateProduct({ id }) {
         const res = await updateProduct({
           variables: inputs,
         })
-        router.push(`/products/${res.data.updateProduct.id}`)
+        router.push(`/products/id/${res.data.updateProduct.id}`)
         clearForm()
       }}
     >

@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import useForm from '../lib/useForm'
 import Form from './styles/Form'
 import DisplayError from './ErrorMessage'
-import { QUERY_ALL_PRODUCTS } from './Products'
+import { QUERY_ALL_AVAILABLE_PRODUCTS } from './Products'
 
 const CREATE_PRODUCT_MUTATION = gql`
   mutation CREATE_PRODUCT_MUTATION(
@@ -39,7 +39,7 @@ export default function CreateProduct() {
     CREATE_PRODUCT_MUTATION,
     {
       variables: inputs,
-      refetchQueries: [{ query: QUERY_ALL_PRODUCTS }],
+      refetchQueries: [{ query: QUERY_ALL_AVAILABLE_PRODUCTS }],
     }
   )
 
@@ -48,7 +48,7 @@ export default function CreateProduct() {
       onSubmit={async (e) => {
         e.preventDefault()
         const res = await createProduct()
-        router.push(`/products/${res.data.createProduct.id}`)
+        router.push(`/products/id/${res.data.createProduct.id}`)
         clearForm()
       }}
     >
