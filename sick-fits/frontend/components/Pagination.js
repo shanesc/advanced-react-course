@@ -8,7 +8,7 @@ import PaginationStyles from './styles/PaginationStyles'
 import DisplayError from './ErrorMessage'
 import { perPage } from '../config'
 
-const QUERY_AVAILABLE_PRODUCT_COUNT = gql`
+export const QUERY_AVAILABLE_PRODUCT_COUNT = gql`
   query {
     _allProductsMeta(where: { status: "AVAILABLE" }) {
       count

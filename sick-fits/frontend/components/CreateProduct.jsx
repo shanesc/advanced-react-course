@@ -33,7 +33,6 @@ export default function CreateProduct() {
   const { inputs, handleChange } = useForm({
     name: '',
     price: '',
-    description: '',
   })
 
   const [createProduct, { error, loading }] = useMutation(
