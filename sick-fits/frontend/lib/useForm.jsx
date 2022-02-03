@@ -1,16 +1,7 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 export default function useForm(initial = {}) {
   const [inputs, setInputs] = useState(initial)
-  const initialValues = Object.values(initial).join('')
-
-  // preload form once inital values are loaded
-  useEffect(() => {
-    setInputs(initial)
-    // need to disable exhaustive dependencies linting here
-    // in order to avoid object dependency
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [initialValues])
 
   function handleChange(e) {
     const { name, type } = e.target
@@ -45,5 +36,6 @@ export default function useForm(initial = {}) {
     handleChange,
     resetForm,
     clearForm,
+    setInputs,
   }
 }

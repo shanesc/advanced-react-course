@@ -30,9 +30,10 @@ const CREATE_PRODUCT_MUTATION = gql`
 export default function CreateProduct() {
   const router = useRouter()
 
-  const { inputs, handleChange, clearForm } = useForm({
+  const { inputs, handleChange } = useForm({
     name: '',
     price: '',
+    description: '',
   })
 
   const [createProduct, { error, loading }] = useMutation(
@@ -49,7 +50,7 @@ export default function CreateProduct() {
         e.preventDefault()
         const res = await createProduct()
         router.push(`/products/id/${res.data.createProduct.id}`)
-        clearForm()
+        // clearForm()
       }}
     >
       <DisplayError error={error} />

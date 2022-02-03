@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from '@apollo/client'
-import React from 'react'
+import React, { useEffect } from 'react'
 import gql from 'graphql-tag'
 import { useRouter } from 'next/router'
 import Form from './styles/Form'
@@ -42,9 +42,14 @@ export default function UpdateProduct({ id }) {
   const [updateProduct, { loading: updateLoading, error: updateError }] =
     useMutation(MUTATION_SINGLE_PRODUCT_UPDATE)
 
-  const { inputs, handleChange, clearForm } = useForm(
+  const { inputs, setInputs, handleChange } = useForm(
     queryData?.Product || { name: '', price: '' }
   )
+
+  // preload form once query data is available
+  useEffect(() => {
+    setInputs(queryData?.Product || { name: '', price: '' })
+  }, [queryData?.Product, setInputs])
 
   if (queryLoading) return <div>Loading...</div>
   return (
@@ -55,7 +60,7 @@ export default function UpdateProduct({ id }) {
           variables: inputs,
         })
         router.push(`/products/id/${res.data.updateProduct.id}`)
-        clearForm()
+        // clearForm()
       }}
     >
       <DisplayError error={queryError || updateError} />

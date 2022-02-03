@@ -11,6 +11,7 @@ export const QUERY_ALL_AVAILABLE_PRODUCTS = gql`
       where: { status: "AVAILABLE" }
       skip: $skipCount
       first: $perPage
+      sortBy: id_DESC
     ) {
       id
       name
