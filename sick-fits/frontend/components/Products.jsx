@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import { perPage } from '../config'
 import Product from './Product'
 
-export const QUERY_ALL_AVAILABLE_PRODUCTS = gql`
+export const QUERY_AVAILABLE_PRODUCTS = gql`
   query QUERY_ALL_AVAILABLE_PRODUCTS($skipCount: Int = 0, $perPage: Int) {
     allProducts(
       where: { status: "AVAILABLE" }
@@ -39,7 +39,7 @@ const ProductsGridStyled = styled.div`
 export default function Products() {
   const { query } = useRouter()
   const page = parseInt(query.page) || 1
-  const { data, error, loading } = useQuery(QUERY_ALL_AVAILABLE_PRODUCTS, {
+  const { data, error, loading } = useQuery(QUERY_AVAILABLE_PRODUCTS, {
     variables: {
       skipCount: perPage * (page - 1),
       perPage,

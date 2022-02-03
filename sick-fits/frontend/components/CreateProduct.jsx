@@ -4,7 +4,8 @@ import { useRouter } from 'next/router'
 import useForm from '../lib/useForm'
 import Form from './styles/Form'
 import DisplayError from './ErrorMessage'
-import { QUERY_ALL_AVAILABLE_PRODUCTS } from './Products'
+import { QUERY_AVAILABLE_PRODUCTS } from './Products'
+import { QUERY_AVAILABLE_PRODUCT_COUNT } from './Pagination'
 
 const CREATE_PRODUCT_MUTATION = gql`
   mutation CREATE_PRODUCT_MUTATION(
@@ -39,7 +40,10 @@ export default function CreateProduct() {
     CREATE_PRODUCT_MUTATION,
     {
       variables: inputs,
-      refetchQueries: [{ query: QUERY_ALL_AVAILABLE_PRODUCTS }],
+      refetchQueries: [
+        { query: QUERY_AVAILABLE_PRODUCTS },
+        { query: QUERY_AVAILABLE_PRODUCT_COUNT },
+      ],
     }
   )
 
