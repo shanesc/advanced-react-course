@@ -3,63 +3,72 @@ import gql from 'graphql-tag'
 import { useRouter } from 'next/router'
 import useForm from '../lib/useForm'
 import DisplayError from './ErrorMessage'
+import { MUTATION_SIGN_IN_USER } from './SignIn'
 import Form from './styles/Form'
 import { QUERY_AUTHENTICATED_USER } from './User'
 
-export const MUTATION_SIGN_IN_USER = gql`
-  mutation MUTATION_SIGN_IN_USER($email: String!, $password: String!) {
-    authenticateUserWithPassword(email: $email, password: $password) {
-      ... on UserAuthenticationWithPasswordSuccess {
-        item {
-          id
-          name
-          email
-        }
-      }
-      ... on UserAuthenticationWithPasswordFailure {
-        code
-        message
-      }
+const MUTATION_CREATE_USER = gql`
+  mutation MUTATION_CREATE_USER(
+    $name: String!
+    $email: String!
+    $password: String!
+  ) {
+    createUser(data: { name: $name, email: $email, password: $password }) {
+      id
     }
   }
 `
 
-export default function SignIn() {
+export default function SignUp() {
   const router = useRouter()
 
   const { inputs, handleChange } = useForm({
+    name: '',
     email: '',
     password: '',
   })
 
-  const [signIn, { data }] = useMutation(MUTATION_SIGN_IN_USER, {
+  const [signIn] = useMutation(MUTATION_SIGN_IN_USER, {
     variables: inputs,
     refetchQueries: [{ query: QUERY_AUTHENTICATED_USER }],
+    onCompleted: (data) => {
+      if (data?.authenticateUserWithPassword?.item) {
+        router.push('/products')
+      }
+    },
   })
 
-  async function handleSubmit() {
-    const {
-      data: {
-        authenticateUserWithPassword: { code },
-      },
-    } = await signIn()
-    return code
-  }
+  const [signUp, { error }] = useMutation(MUTATION_CREATE_USER, {
+    variables: {
+      name: inputs.name || null,
+      email: inputs.email || null,
+      password: inputs.password || null,
+    },
+    onCompleted: signIn,
+  })
 
   return (
     <Form
       method="POST"
       onSubmit={async (e) => {
         e.preventDefault()
-        const code = await handleSubmit()
-        if (!code) {
-          router.push('/products')
-        }
+        await signUp().catch(console.error)
       }}
     >
       <fieldset>
-        <DisplayError error={data?.authenticateUserWithPassword} />
-        <h2>Sign in to your account</h2>
+        <DisplayError error={error} />
+        <h2>Create an account</h2>
+        <label>
+          Your Name
+          <input
+            type="text"
+            name="name"
+            placeholder="Your Name"
+            autoComplete="name"
+            value={inputs.name}
+            onChange={handleChange}
+          />
+        </label>
         <label>
           Email
           <input
@@ -82,7 +91,7 @@ export default function SignIn() {
             onChange={handleChange}
           />
         </label>
-        <button type="submit">Sign In</button>
+        <button type="submit">Create</button>
       </fieldset>
     </Form>
   )
