@@ -6,7 +6,7 @@ import DisplayError from './ErrorMessage'
 import Form from './styles/Form'
 import { QUERY_AUTHENTICATED_USER } from './User'
 
-const MUTATION_SIGN_IN_USER = gql`
+export const MUTATION_SIGN_IN_USER = gql`
   mutation MUTATION_SIGN_IN_USER($email: String!, $password: String!) {
     authenticateUserWithPassword(email: $email, password: $password) {
       ... on UserAuthenticationWithPasswordSuccess {
