@@ -35,26 +35,19 @@ export default function SignIn() {
   const [signIn, { data }] = useMutation(MUTATION_SIGN_IN_USER, {
     variables: inputs,
     refetchQueries: [{ query: QUERY_AUTHENTICATED_USER }],
+    onCompleted: () => {
+      if (data?.authenticateUserWithPassword?.item) {
+        router.push('/products')
+      }
+    },
   })
-
-  async function handleSubmit() {
-    const {
-      data: {
-        authenticateUserWithPassword: { code },
-      },
-    } = await signIn()
-    return code
-  }
 
   return (
     <Form
       method="POST"
       onSubmit={async (e) => {
         e.preventDefault()
-        const code = await handleSubmit()
-        if (!code) {
-          router.push('/products')
-        }
+        await signIn().catch(console.error)
       }}
     >
       <fieldset>
