@@ -21,15 +21,14 @@ const MUTATION_RESET_PASSWORD = gql`
   }
 `
 
-export default function ResetPassword({ token }) {
+export default function ResetPassword({ token, email }) {
   const { inputs, handleChange } = useForm({
-    email: '',
     password: '',
   })
 
   const [resetPasswordLink, { data }] = useMutation(MUTATION_RESET_PASSWORD, {
     variables: {
-      email: inputs.email || null,
+      email,
       password: inputs.password || null,
       token,
     },
@@ -51,17 +50,6 @@ export default function ResetPassword({ token }) {
           <p>Password successfully reset! Please log in.</p>
         )}
         <h2>Reset your password</h2>
-        <label>
-          Email
-          <input
-            type="email"
-            name="email"
-            placeholder="Email Address"
-            autoComplete="email"
-            value={inputs.email}
-            onChange={handleChange}
-          />
-        </label>
         <label>
           Password
           <input

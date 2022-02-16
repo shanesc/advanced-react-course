@@ -1,13 +1,13 @@
-import 'dotenv/config'
-import { config, createSchema } from '@keystone-next/keystone/schema'
 import { createAuth } from '@keystone-next/auth'
+import { config, createSchema } from '@keystone-next/keystone/schema'
 import {
-  withItemData,
-  statelessSessions,
+  statelessSessions, withItemData
 } from '@keystone-next/keystone/session'
-import { User } from './schemas/User'
+import 'dotenv/config'
+import { sendPasswordResetEmail } from './lib/mail'
 import { Product } from './schemas/Product'
 import { ProductImage } from './schemas/ProductImage'
+import { User } from './schemas/User'
 import { insertSeedData } from './seed-data'
 
 const databaseURL = process.env.DATABASE_URL
@@ -23,6 +23,11 @@ const { withAuth } = createAuth({
   secretField: 'password',
   initFirstItem: {
     fields: ['name', 'email', 'password'],
+  },
+  passwordResetLink: {
+    sendToken: async (args) => {
+      await sendPasswordResetEmail(args.token, args.identity)
+    },
   },
 })
 
