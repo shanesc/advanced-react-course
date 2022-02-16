@@ -28,14 +28,9 @@ export default function SignUp() {
     password: '',
   })
 
-  const [signIn] = useMutation(MUTATION_SIGN_IN_USER, {
+  const [signIn, { data }] = useMutation(MUTATION_SIGN_IN_USER, {
     variables: inputs,
     refetchQueries: [{ query: QUERY_AUTHENTICATED_USER }],
-    onCompleted: (data) => {
-      if (data?.authenticateUserWithPassword?.item) {
-        router.push('/products')
-      }
-    },
   })
 
   const [signUp, { error }] = useMutation(MUTATION_CREATE_USER, {
@@ -46,6 +41,10 @@ export default function SignUp() {
     },
     onCompleted: signIn,
   })
+
+  if (data?.authenticateUserWithPassword?.item) {
+    router.push('/products')
+  }
 
   return (
     <Form

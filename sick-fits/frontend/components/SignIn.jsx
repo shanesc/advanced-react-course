@@ -35,12 +35,11 @@ export default function SignIn() {
   const [signIn, { data }] = useMutation(MUTATION_SIGN_IN_USER, {
     variables: inputs,
     refetchQueries: [{ query: QUERY_AUTHENTICATED_USER }],
-    onCompleted: () => {
-      if (data?.authenticateUserWithPassword?.item) {
-        router.push('/products')
-      }
-    },
   })
+
+  if (data?.authenticateUserWithPassword?.item) {
+    router.push('/products')
+  }
 
   return (
     <Form
