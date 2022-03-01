@@ -1,10 +1,13 @@
 import { createAuth } from '@keystone-next/auth'
 import { config, createSchema } from '@keystone-next/keystone/schema'
 import {
-  statelessSessions, withItemData
+  statelessSessions,
+  // eslint-disable-next-line prettier/prettier
+  withItemData
 } from '@keystone-next/keystone/session'
 import 'dotenv/config'
 import { sendPasswordResetEmail } from './lib/mail'
+import { CartItem } from './schemas/CartItem'
 import { Product } from './schemas/Product'
 import { ProductImage } from './schemas/ProductImage'
 import { User } from './schemas/User'
@@ -53,6 +56,7 @@ export default withAuth(
       User,
       Product,
       ProductImage,
+      CartItem,
     }),
     ui: {
       // TODO change this for roles
