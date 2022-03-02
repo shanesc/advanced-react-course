@@ -8,6 +8,22 @@ export const QUERY_AUTHENTICATED_USER = gql`
         id
         name
         email
+        cart {
+          id
+          product {
+            id
+            name
+            price
+            description
+            photo {
+              image {
+                publicUrlTransformed
+              }
+              altText
+            }
+          }
+          quantity
+        }
       }
     }
   }
