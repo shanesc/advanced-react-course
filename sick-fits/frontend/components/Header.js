@@ -1,6 +1,7 @@
-import React from 'react'
 import Link from 'next/link'
+import React from 'react'
 import styled from 'styled-components'
+import Cart from './Cart'
 import Nav from './Nav'
 
 const Logo = styled.h1`
@@ -45,6 +46,7 @@ export default function Header() {
       </div>
       <div className="sub-bar">
         <p>Search</p>
+        <Cart />
       </div>
     </HeaderStyled>
   )
