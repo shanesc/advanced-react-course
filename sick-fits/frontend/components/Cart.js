@@ -1,12 +1,15 @@
 import styled from 'styled-components'
+import { useCartState } from '../context/cartState'
 import { calculateCartTotal } from '../lib/calculateCartTotal'
 import { formatMoney } from '../lib/formatMoney'
 import StyledCart from './styles/CartStyles'
+import CloseButton from './styles/CloseButton'
 import Supreme from './styles/Supreme'
 import { useUser } from './User'
 
 export default function Cart() {
   const user = useUser()
+  const { cartOpen, closeCart } = useCartState()
 
   if (!user) return null
 
@@ -15,9 +18,12 @@ export default function Cart() {
     firstName.slice(0, 1).toUpperCase() + firstName.slice(1)
 
   return (
-    <StyledCart open>
+    <StyledCart open={cartOpen}>
       <header>
         <Supreme>{firstNameCapitalized}'s Cart</Supreme>
+        <CloseButton type="button" onClick={closeCart}>
+          &times;
+        </CloseButton>
       </header>
       <ul>
         {user.cart.map((item) => (
