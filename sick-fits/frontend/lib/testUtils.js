@@ -1,5 +1,5 @@
 import casual from 'casual'
-import { PAGINATION_QUERY } from '../components/Pagination'
+import { QUERY_AVAILABLE_PRODUCT_COUNT } from '../components/Pagination'
 
 // seed it so we get consistent results
 casual.seed(777)
@@ -88,7 +88,7 @@ class LocalStorageMock {
 function makePaginationMocksFor(length) {
   return [
     {
-      request: { query: PAGINATION_QUERY },
+      request: { query: QUERY_AVAILABLE_PRODUCT_COUNT },
       result: {
         data: {
           _allProductsMeta: {

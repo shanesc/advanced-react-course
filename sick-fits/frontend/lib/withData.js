@@ -1,6 +1,6 @@
 import { ApolloClient, ApolloLink, InMemoryCache } from '@apollo/client'
-import { onError } from '@apollo/link-error'
 import { getDataFromTree } from '@apollo/client/react/ssr'
+import { onError } from '@apollo/link-error'
 import { createUploadLink } from 'apollo-upload-client'
 import withApollo from 'next-with-apollo'
 import { endpoint, prodEndpoint } from '../config'
@@ -12,11 +12,13 @@ function createClient({ headers, initialState }) {
       onError(({ graphQLErrors, networkError }) => {
         if (graphQLErrors)
           graphQLErrors.forEach(({ message, locations, path }) =>
+            // eslint-disable-next-line no-console
             console.log(
               `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
             )
           )
         if (networkError)
+          // eslint-disable-next-line no-console
           console.log(
             `[Network error]: ${networkError}. Backend is unreachable. Is it running?`
           )
