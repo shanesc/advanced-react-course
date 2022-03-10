@@ -9,6 +9,5 @@
   "editor.codeActionsOnSave": {
     "source.fixAll": true
   },
-  "editor.formatOnSave": true,
-  "javascript.validate.enable": false
+  "editor.formatOnSave": true
 }

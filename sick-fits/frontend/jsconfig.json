@@ -1,8 +1,7 @@
 {
   "compilerOptions": {
-    // "baseUrl": ".",
-    "checkJs": true,
-    "jsx": "preserve"
+    "jsx": "preserve",
+    "module": "ES6"
   },
   "exclude": ["node_modules", "**/node_modules/*", ".next"]
 }
