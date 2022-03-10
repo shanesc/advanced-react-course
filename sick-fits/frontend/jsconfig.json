@@ -1,9 +1,3 @@
 {
-  "compilerOptions": {
-    "jsx": "preserve",
-    "module": "ES6",
-    "checkJs": true,
-    "moduleResolution": "node"
-  },
   "exclude": ["node_modules", "**/node_modules/*", ".next"]
 }
