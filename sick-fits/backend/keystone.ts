@@ -7,6 +7,7 @@ import {
 } from '@keystone-next/keystone/session'
 import 'dotenv/config'
 import { sendPasswordResetEmail } from './lib/mail'
+import { extendGraphqlSchema } from './mutations'
 import { CartItem } from './schemas/CartItem'
 import { Product } from './schemas/Product'
 import { ProductImage } from './schemas/ProductImage'
@@ -58,6 +59,7 @@ export default withAuth(
       ProductImage,
       CartItem,
     }),
+    extendGraphqlSchema,
     ui: {
       // TODO change this for roles
       isAccessAllowed: ({ session }) => {
